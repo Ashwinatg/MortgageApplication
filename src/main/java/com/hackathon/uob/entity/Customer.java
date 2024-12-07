@@ -1,15 +1,15 @@
 package com.hackathon.uob.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Data
 @Entity
-@Table(name = "customer")
-@Getter
-@Setter
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
