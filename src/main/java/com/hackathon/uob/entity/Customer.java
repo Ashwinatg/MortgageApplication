@@ -1,5 +1,7 @@
 package com.hackathon.uob.entity;
-
+/**
+ * @author nikhilesh chaurasia
+ */
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
