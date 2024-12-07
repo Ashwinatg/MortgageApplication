@@ -1,4 +1,4 @@
-package com.hackathon.uob.MortgageApplication;
+package com.hackathon.uob;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
