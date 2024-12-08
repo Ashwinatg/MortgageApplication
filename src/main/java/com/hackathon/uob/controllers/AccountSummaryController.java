@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(name = "/api/v1/accounts")
+@RequestMapping(path = "/api/accounts")
 public class AccountSummaryController {
 
     private final AccountSummaryService accountSummaryService;
@@ -18,7 +18,7 @@ public class AccountSummaryController {
     }
 
     @GetMapping("/summary/{customerId}")
-    public ResponseEntity<?> getCustomerAccountSummary(@PathVariable("customerId") Long customerId) {
+    public ResponseEntity<Object> getCustomerAccountSummary(@PathVariable("customerId") Long customerId) {
         return ResponseEntity.ok(accountSummaryService.getCustomerAccountSummary(customerId));
     }
 }

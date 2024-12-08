@@ -10,6 +10,6 @@ public class CustomerAccountNotFoundException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return super.getMessage();
+        return this.message;
     }
 }
