@@ -27,7 +27,7 @@ public class JwtTokenUtil implements Serializable {
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // Corrected: expiration is already in ms
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }

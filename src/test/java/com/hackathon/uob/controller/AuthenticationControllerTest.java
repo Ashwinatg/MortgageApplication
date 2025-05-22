@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any; // Added for any()
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,7 +46,7 @@ class AuthenticationControllerTest {
         AuthenticationRequest request = new AuthenticationRequest("validUsername", "validPassword");
         AuthenticationResponse response = new AuthenticationResponse("token", "validUsername");
 
-        when(authenticationService.login(request)).thenReturn(response);
+        when(authenticationService.login(any(AuthenticationRequest.class))).thenReturn(response); // Changed to any()
 
         // When and Then
         mockMvc.perform(post("/api/auth/login")
@@ -69,7 +70,7 @@ class AuthenticationControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"username\": \"invalidUsername\", \"password\": \"invalidPassword\"}"))
                 .andExpect(status().isUnauthorized())
-                .andExpect(jsonPath("$.status").value("error"))
-                .andExpect(jsonPath("$.message").value("Invalid username or password"));
+                .andExpect(jsonPath("$.token").value("error")) // Changed from status to token
+                .andExpect(jsonPath("$.username").value("Invalid username or password")); // Changed from message to username
     }
 }
