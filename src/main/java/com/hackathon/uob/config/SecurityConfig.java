@@ -39,15 +39,11 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable) // Disable CORS as well
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login").permitAll()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated() // Changed from permitAll to authenticated
                 )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Ensure stateless session
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//        http.csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests()
-//                .anyRequest().permitAll()
-//                .and()
-//                .securityContext().disable();
+
         return http.build();
     }
 
@@ -58,4 +54,9 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        // Using NoOpPasswordEncoder as CustomUserDetailsService adds {noop}
+        return NoOpPasswordEncoder.getInstance();
+    }
 }
